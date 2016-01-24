@@ -1,0 +1,56 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+def defaultEncoding = 'UTF-8'
+compileJava.options.encoding = defaultEncoding
+compileTestJava.options.encoding = defaultEncoding
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = 'jp.number64.codebits.BatchFrame'
+applicationName = 'BatchFrame'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+    compile 'ch.qos.logback:logback-classic:1.1.+'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.+'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+test {
+  testLogging.showStandardStreams = true
+}
+
+// >gradle run -Pargs="hoge fuga piyo"
+run {
+    if (project.hasProperty('args')) {
+        args project.args.split('\\s+')
+    }
+    // standardInput = System.in
+}
+
+// ------------------------------------------------------------------------------------------------
+
+// Additional tasks for unit-test.
+
+// unit (unit-test, running specific class only)
+// This task cleans result everytime, and shows standard-output, and runs target test-class(es) only.
+task unit(type: Test, dependsOn: cleanTest) {
+
+    // command sample: xxx> gradle unit -Ptarget="**/config/SomeTargetClass.class" **=anydir, *=anystring
+    if (project.hasProperty('target')) {
+        include "${project.target}"
+    }
+    description = 'unit'
+    testClassesDir = sourceSets.test.output.classesDir
+    classpath = sourceSets.test.runtimeClasspath
+    testLogging {
+        events 'started','failed', 'skipped'
+        showStandardStreams = true
+    }
+}
