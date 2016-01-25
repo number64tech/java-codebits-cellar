@@ -1,4 +1,4 @@
-package jp.number64.encoding;
+package jp.number64.fileoperation;
 
 import java.io.BufferedReader;
 import java.io.File;
