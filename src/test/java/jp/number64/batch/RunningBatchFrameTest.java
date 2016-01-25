@@ -1,5 +1,6 @@
 package jp.number64.batch;
 
+import jp.number64.TestBase;
 import jp.number64.batch.RunningBatchFrameTest.BatchFrameTest;
 
 import org.junit.FixMethodOrder;
@@ -15,8 +16,7 @@ import org.slf4j.LoggerFactory;
 @SuiteClasses({
     BatchFrameTest.class,
 })
-public class RunningBatchFrameTest {
-    public static final String START_LOG = "** START: {}";
+public class RunningBatchFrameTest extends TestBase {
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -25,15 +25,10 @@ public class RunningBatchFrameTest {
 
         @Test
         public void case01() {
-            LOGGER.debug(START_LOG, getMethodName(new Throwable()));
+            LOGGER.debug("");
             String[] args = {"",""};
             BatchFrame.main(args);
         }
     }
 
-    // ----------------------------------------------------------------------------------------
-    public static String getMethodName(final Throwable thisMethod) {
-        StackTraceElement stackTrace = thisMethod.getStackTrace()[0];
-        return stackTrace.getMethodName();
-    }
 }

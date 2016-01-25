@@ -20,21 +20,17 @@ public class RunningFileClassSampleTest {
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-    public static final class RenameToTest {
+    public static final class RenameToTest extends FileTestBase {
         private static final Logger LOGGER = LoggerFactory.getLogger(RenameToTest.class);
 
         @Test
         public void case01() {
             LOGGER.debug(START_LOG, getMethodName(new Throwable()));
-
-
-
         }
-    }
 
-    // ----------------------------------------------------------------------------------------
-    public static String getMethodName(final Throwable thisMethod) {
-        StackTraceElement stackTrace = thisMethod.getStackTrace()[0];
-        return stackTrace.getMethodName();
+        @Override
+        public String getTestClassName() {
+            return "RenameToTest";
+        }
     }
 }

@@ -6,11 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.number64.fileoperation.BinaryIo;
-import jp.number64.fileoperation.CheckedFile;
 import jp.number64.fileoperation.RunningBinaryIoTest.BinaryInputTest;
 import jp.number64.fileoperation.RunningBinaryIoTest.ConvertTest;
 
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,11 +25,10 @@ import org.slf4j.LoggerFactory;
     ConvertTest.class
 })
 public class RunningBinaryIoTest {
-    public static final String START_LOG = "** START: {}";
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-    public static final class BinaryInputTest {
+    public static final class BinaryInputTest extends FileTestBase {
         private static final Logger LOGGER = LoggerFactory.getLogger(BinaryInputTest.class);
 
         @Test
@@ -42,11 +40,16 @@ public class RunningBinaryIoTest {
             List<Byte> result = testTarget.inputAsBinary(checkedFilePath);
             assertEquals(result, null);
         }
+
+        @Override
+        public String getTestClassName() {
+            return "BinaryInputTest";
+        }
     }
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-    public static final class ConvertTest {
+    public static final class ConvertTest extends FileTestBase {
         private static final Logger LOGGER = LoggerFactory.getLogger(ConvertTest.class);
         @Test
         public void case01() throws IOException {
@@ -56,11 +59,15 @@ public class RunningBinaryIoTest {
             String result = testTarget.formatBinaryToHexDump(new ArrayList<Byte>());
             assertEquals(result, null);
         }
-    }
 
-    // ----------------------------------------------------------------------------------------
-    public static String getMethodName(final Throwable thisMethod) {
-        StackTraceElement stackTrace = thisMethod.getStackTrace()[0];
-        return stackTrace.getMethodName();
+        @Before
+        public void doBefore() throws IOException {
+            levelOffSandBox();
+        }
+
+        @Override
+        public String getTestClassName() {
+            return "ConvertTest";
+        }
     }
 }

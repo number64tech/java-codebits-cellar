@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
-import jp.number64.fileoperation.ShiftJisToUnicodeEsc;
 import jp.number64.fileoperation.RunningShiftJisToUnicodeEscTest.ShiftJISInputTest;
 import jp.number64.fileoperation.RunningShiftJisToUnicodeEscTest.UnicodeEscapeTest;
 
@@ -27,37 +26,35 @@ public class RunningShiftJisToUnicodeEscTest {
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-    public static final class ShiftJISInputTest {
+    public static final class ShiftJISInputTest extends FileTestBase {
         private static final Logger LOGGER = LoggerFactory.getLogger(ShiftJISInputTest.class);
 
         @Test
         public void case01() throws IOException {
             LOGGER.debug(START_LOG, getMethodName(new Throwable()));
-            ShiftJisToUnicodeEsc testTarget = new ShiftJisToUnicodeEsc();
-            testTarget.setUp("");
-
             assertEquals(null, "");
+        }
+
+        @Override
+        public String getTestClassName() {
+            return "ShiftJISInputTest";
         }
     }
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-    public static final class UnicodeEscapeTest {
+    public static final class UnicodeEscapeTest extends FileTestBase {
         private static final Logger LOGGER = LoggerFactory.getLogger(UnicodeEscapeTest.class);
 
         @Test
         public void case01() throws IOException {
             LOGGER.debug(START_LOG, getMethodName(new Throwable()));
-            ShiftJisToUnicodeEsc testTarget = new ShiftJisToUnicodeEsc();
-            testTarget.setUp("");
-
             assertEquals(null, "");
         }
-    }
 
-    // ----------------------------------------------------------------------------------------
-    public static String getMethodName(final Throwable thisMethod) {
-        StackTraceElement stackTrace = thisMethod.getStackTrace()[0];
-        return stackTrace.getMethodName();
+        @Override
+        public String getTestClassName() {
+            return "UnicodeEscapeTest";
+        }
     }
 }
