@@ -25,16 +25,18 @@ public class RunningCheckedFileTest extends FileTestBase {
         LOGGER.debug("** case01 OK.");
     }
 
+    /** not exsit file */
     @Test(expected = IOException.class)
     public void case02() throws IOException {
+        LOGGER.debug("** case02 expected = IOException.class");
         CheckedFile.generateCheckedFile("/dummy.txt");
-        LOGGER.debug("** case02 OK.");
     }
 
+    /** not file (but directory) */
     @Test(expected = IOException.class)
     public void case03() throws IOException {
+        LOGGER.debug("** case03 expected = IOException.class");
         CheckedFile.generateCheckedFile(sandBox.getAbsolutePath());
-        LOGGER.debug("** case03 OK.");
     }
 
     @Before

@@ -27,17 +27,17 @@ public class RunningCheckedDirTest extends FileTestBase {
 
     @Test(expected = IOException.class)
     public void case02() throws IOException {
+        LOGGER.debug("** case02 expected = IOException.class");
         CheckedDirectory.generateCheckedDirectory("not/exist");
-        LOGGER.debug("** case02 OK.");
     }
 
     @Test(expected = IOException.class)
     public void case03() throws IOException {
+        LOGGER.debug("** case03 expected = IOException.class");
         String tempFileName = "temp.txt";
         File tempTarget = new File(sandBox.getAbsolutePath() + File.separator + tempFileName);
         assertTrue(tempTarget.createNewFile());
         CheckedDirectory.generateCheckedDirectory(tempTarget.getAbsolutePath());
-        LOGGER.debug("** case03 OK.");
     }
 
     @Before

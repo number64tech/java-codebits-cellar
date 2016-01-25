@@ -1,6 +1,6 @@
 package jp.number64.fileoperation;
 
-import jp.number64.batch.RunningBatchFrameTest.BatchFrameTest;
+import jp.number64.fileoperation.RunningFileClassSampleTest.TestRenameTo;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -13,24 +13,23 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    BatchFrameTest.class,
+    TestRenameTo.class,
 })
-public class RunningFileClassSampleTest {
-    public static final String START_LOG = "** START: {}";
+public class RunningFileClassSampleTest extends FileTestBase {
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-    public static final class RenameToTest extends FileTestBase {
-        private static final Logger LOGGER = LoggerFactory.getLogger(RenameToTest.class);
+    public static final class TestRenameTo {
+        private static final Logger LOGGER = LoggerFactory.getLogger(TestRenameTo.class);
 
         @Test
         public void case01() {
             LOGGER.debug(START_LOG, getMethodName(new Throwable()));
         }
+    }
 
-        @Override
-        public String getTestClassName() {
-            return "RenameToTest";
-        }
+    @Override
+    public String getTestClassName() {
+        return "FileClassSampleTest";
     }
 }
