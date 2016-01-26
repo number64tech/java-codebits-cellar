@@ -23,15 +23,17 @@ public abstract class FileTestBase extends TestBase {
             return;
         }
 
-        File[] toysOnSandbox = sandBox.listFiles();
-        for (File toy : toysOnSandbox) {
+        File[] toysOnSandBox = sandBox.listFiles();
+        for (File toy : toysOnSandBox) {
             if (!toy.delete()) {
                 throw new IOException("Can't cleanup sandbox. cause: delete failure. [" + toy.getAbsolutePath() + "]");
             }
         }
     }
 
-    /** It should return testclassname based on implemented class name. */
-    public abstract String getTestClassName();
+    public String getTestClassName() {
+        String className = this.getClass().getName();
+        return className;
+    };
 }
 

@@ -13,40 +13,34 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RunningCheckedDirTest extends FileTestBase {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RunningCheckedDirTest.class);
+public class CheckedFileTest extends FileTestBase {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CheckedFileTest.class);
 
     @Test
     public void case01() throws IOException {
-        String tempDirName = "temp";
-        File tempTarget = new File(sandBox.getAbsolutePath() + File.separator + tempDirName);
-        assertTrue(tempTarget.mkdir());
-        CheckedDirectory.generateCheckedDirectory(tempTarget.getAbsolutePath());
-        LOGGER.debug("** case01 OK.");
-    }
-
-    @Test(expected = IOException.class)
-    public void case02() throws IOException {
-        LOGGER.debug("** case02 expected = IOException.class");
-        CheckedDirectory.generateCheckedDirectory("not/exist");
-    }
-
-    @Test(expected = IOException.class)
-    public void case03() throws IOException {
-        LOGGER.debug("** case03 expected = IOException.class");
         String tempFileName = "temp.txt";
         File tempTarget = new File(sandBox.getAbsolutePath() + File.separator + tempFileName);
         assertTrue(tempTarget.createNewFile());
-        CheckedDirectory.generateCheckedDirectory(tempTarget.getAbsolutePath());
+        CheckedFile.generateCheckedFile(tempTarget.getAbsolutePath());
+        LOGGER.debug("** case01 OK.");
+    }
+
+    /** not exsit file */
+    @Test(expected = IOException.class)
+    public void case02() throws IOException {
+        LOGGER.debug("** case02 expected = IOException.class");
+        CheckedFile.generateCheckedFile("/dummy.txt");
+    }
+
+    /** not file (but directory) */
+    @Test(expected = IOException.class)
+    public void case03() throws IOException {
+        LOGGER.debug("** case03 expected = IOException.class");
+        CheckedFile.generateCheckedFile(sandBox.getAbsolutePath());
     }
 
     @Before
     public void doBefore() throws IOException {
         levelOffSandBox();
-    }
-
-    @Override
-    public String getTestClassName() {
-        return "RunningCheckedFileTest";
     }
 }
