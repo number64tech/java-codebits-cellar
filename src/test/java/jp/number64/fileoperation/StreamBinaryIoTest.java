@@ -22,6 +22,22 @@ public class StreamBinaryIoTest {
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+    public static final class DrivingCodeBit extends FileTestBase {
+        private static final Logger LOGGER = LoggerFactory.getLogger(DrivingCodeBit.class);
+
+        @Test
+        public void doIt() throws IOException {
+            CheckedFile checkedFilePath = CheckedFile.generateCheckedFile("fileoperation/tochigi_sjis_crlf.csv");
+            StreamBinaryIo testTarget = new StreamBinaryIo();
+            List<Byte> textToByteList = testTarget.inputAsBinary(checkedFilePath);
+            String byteListToHexString = testTarget.convertBinaryToHexString(textToByteList);
+            String result = testTarget.formatHexStringForDump(byteListToHexString);
+            LOGGER.debug("\n{}", result);
+        }
+    }
+
+    /**  */
+    @FixMethodOrder(MethodSorters.NAME_ASCENDING)
     public static final class BinaryInputTest extends FileTestBase {
         private static final Logger LOGGER = LoggerFactory.getLogger(BinaryInputTest.class);
 
@@ -52,7 +68,7 @@ public class StreamBinaryIoTest {
 
             // TODO: output binarydata to file, and input it, and compare.
 
-            String result = testTarget.formatBinaryToHexDump(new ArrayList<Byte>());
+            String result = testTarget.convertBinaryToHexString(new ArrayList<Byte>());
             assertEquals(result, null);
         }
     }
