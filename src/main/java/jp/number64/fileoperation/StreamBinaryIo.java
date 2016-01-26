@@ -9,8 +9,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BinaryIo {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BinaryIo.class);
+public class StreamBinaryIo {
+    private static final Logger LOGGER = LoggerFactory.getLogger(StreamBinaryIo.class);
 
     public List<Byte> inputAsBinary(CheckedFile targetFile) throws IOException {
         LOGGER.debug("** start #inputAsBinary()");

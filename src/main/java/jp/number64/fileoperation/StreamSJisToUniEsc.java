@@ -9,8 +9,8 @@ import java.io.InputStreamReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ShiftJisToUnicodeEsc {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ShiftJisToUnicodeEsc.class);
+public class StreamSJisToUniEsc {
+    private static final Logger LOGGER = LoggerFactory.getLogger(StreamSJisToUniEsc.class);
 
     private String targetFilePath = null;
 

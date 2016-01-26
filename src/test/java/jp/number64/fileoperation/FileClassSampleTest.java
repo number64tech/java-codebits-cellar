@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 //@SuiteClasses({
 //    TestRenameTo.class,
 //})
-public class RunningFileClassSampleTest {
+public class FileClassSampleTest {
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)

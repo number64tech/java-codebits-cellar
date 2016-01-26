@@ -33,7 +33,7 @@ public class StreamBinaryIoTest {
             File testInput = new File(sandBox.getAbsolutePath() + File.separator + "bin.txt");
 
             CheckedFile checkedFilePath = CheckedFile.generateCheckedFile("");
-            BinaryIo testTarget = new BinaryIo();
+            StreamBinaryIo testTarget = new StreamBinaryIo();
 
             List<Byte> result = testTarget.inputAsBinary(checkedFilePath);
             assertEquals(result, null);
@@ -48,7 +48,7 @@ public class StreamBinaryIoTest {
         @Test
         public void case01() throws IOException {
             LOGGER.debug(START_LOG, getMethodName(new Throwable()));
-            BinaryIo testTarget = new BinaryIo();
+            StreamBinaryIo testTarget = new StreamBinaryIo();
 
             // TODO: output binarydata to file, and input it, and compare.
 
