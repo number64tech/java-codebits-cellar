@@ -15,13 +15,13 @@ import org.slf4j.LoggerFactory;
 //    TestShiftJISInput.class,
 //    TestUnicodeEscape.class,
 //})
-public class ShiftJisToUnicodeEscTest {
+public class StreamSJisToUniEscTest {
     public static final String START_LOG = "** START: {}";
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-    public static final class TestShiftJISInput extends FileTestBase {
-        private static final Logger LOGGER = LoggerFactory.getLogger(TestShiftJISInput.class);
+    public static final class ShiftJISInputTest extends FileTestBase {
+        private static final Logger LOGGER = LoggerFactory.getLogger(ShiftJISInputTest.class);
 
         @Test
         public void case01() throws IOException {
@@ -32,8 +32,8 @@ public class ShiftJisToUnicodeEscTest {
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-    public static final class TestUnicodeEscape extends FileTestBase {
-        private static final Logger LOGGER = LoggerFactory.getLogger(TestUnicodeEscape.class);
+    public static final class UnicodeEscapeTest extends FileTestBase {
+        private static final Logger LOGGER = LoggerFactory.getLogger(UnicodeEscapeTest.class);
 
         @Test
         public void case01() throws IOException {
