@@ -27,7 +27,8 @@ public class StreamBinaryIoTest {
 
         @Test
         public void doIt() throws IOException {
-            CheckedFile checkedFilePath = CheckedFile.generateCheckedFile("fileoperation/tochigi_sjis_crlf.csv");
+            CheckedFile checkedFilePath =
+                CheckedFile.generateCheckedFile("src/test/resources/fileoperation/tochigi_sjis_crlf.csv");
             StreamBinaryIo testTarget = new StreamBinaryIo();
             List<Byte> textToByteList = testTarget.inputAsBinary(checkedFilePath);
             String byteListToHexString = testTarget.convertBinaryToHexString(textToByteList);

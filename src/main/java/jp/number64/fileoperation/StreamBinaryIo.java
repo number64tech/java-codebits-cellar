@@ -31,7 +31,7 @@ public class StreamBinaryIo {
         }
 
         LOGGER.debug("** end #inputAsBinary()");
-        return null;
+        return result;
     }
 
     public String convertBinaryToHexString(List<Byte> input) {
@@ -59,12 +59,12 @@ public class StreamBinaryIo {
 
     public String formatHexStringForDump(String hexString) {
         // convert to space-separated-value
-        Pattern patternInsertSpace = Pattern.compile("(?<=[0-9a-fA-F]{2})+");
+        Pattern patternInsertSpace = Pattern.compile("^([0-9a-fA-F]{2}|-{2})(?<=([0-9a-fA-F]{2}|-{2})+)");
         Matcher matchInsertSpace = patternInsertSpace.matcher(hexString);
         String ssv = matchInsertSpace.replaceAll(" ");
 
         // insert new-line every 16 pieces
-        Pattern patternInsertNewline = Pattern.compile("(?:(([0-9a-fA-F]{2} ){16}) ");
+        Pattern patternInsertNewline = Pattern.compile("(?:(([0-9a-fA-F]{2} |-{2} ){15}([0-9a-fA-F]{2}|-{2}))) ");
         Matcher matchInsertNewline = patternInsertNewline.matcher(ssv);
         String foldedSsv = matchInsertNewline.replaceAll("\n");
 
