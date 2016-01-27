@@ -24,23 +24,6 @@ public class StreamBinaryIoTest {
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-    public static final class DrivingCodeBit extends FileTestBase {
-        private static final Logger LOGGER = LoggerFactory.getLogger(DrivingCodeBit.class);
-
-        @Ignore
-        @Test
-        public void doIt() throws IOException {
-            CheckedFile checkedFilePath =
-                CheckedFile.generateCheckedFile("src/test/resources/fileoperation/tochigi_sjis_crlf.csv");
-            StreamBinaryIo testTarget = new StreamBinaryIo();
-            List<Integer> byteList = testTarget.inputAsBinary(checkedFilePath);
-            String result = testTarget.formatBinaryForHexDump(byteList);
-            LOGGER.debug("\n{}", result);
-        }
-    }
-
-    /**  */
-    @FixMethodOrder(MethodSorters.NAME_ASCENDING)
     public static final class BinaryInputTest extends FileTestBase {
         private static final Logger LOGGER = LoggerFactory.getLogger(BinaryInputTest.class);
 
@@ -122,6 +105,62 @@ public class StreamBinaryIoTest {
             }
             String result04 = testTarget.formatBinaryForHexDump(pattern04NewLine);
             assertEquals((2+1)*9-1, result04.indexOf(System.lineSeparator()));
+        }
+    }
+
+    /**  */
+    public static final class DrivingCodeBit extends FileTestBase {
+        private static final Logger LOGGER = LoggerFactory.getLogger(DrivingCodeBit.class);
+
+        @Ignore
+        @Test
+        public void dumpShiftJIS() throws IOException {
+            CheckedFile checkedFilePath =
+                CheckedFile.generateCheckedFile("src/test/resources/fileoperation/tochigi_sjis_crlf.csv");
+            StreamBinaryIo testTarget = new StreamBinaryIo();
+            List<Integer> byteList = testTarget.inputAsBinary(checkedFilePath);
+            String result = testTarget.formatBinaryForHexDump(byteList);
+            LOGGER.debug("\n{}", result);
+        }
+        @Ignore
+        @Test
+        public void dumpEucJp() throws IOException {
+            CheckedFile checkedFilePath =
+                CheckedFile.generateCheckedFile("src/test/resources/fileoperation/tochigi_eucjp_lf.csv");
+            StreamBinaryIo testTarget = new StreamBinaryIo();
+            List<Integer> byteList = testTarget.inputAsBinary(checkedFilePath);
+            String result = testTarget.formatBinaryForHexDump(byteList);
+            LOGGER.debug("\n{}", result);
+        }
+        @Ignore
+        @Test
+        public void dumpJis() throws IOException {
+            CheckedFile checkedFilePath =
+                CheckedFile.generateCheckedFile("src/test/resources/fileoperation/tochigi_jis_lf.csv");
+            StreamBinaryIo testTarget = new StreamBinaryIo();
+            List<Integer> byteList = testTarget.inputAsBinary(checkedFilePath);
+            String result = testTarget.formatBinaryForHexDump(byteList);
+            LOGGER.debug("\n{}", result);
+        }
+        @Ignore
+        @Test
+        public void dumpUtf8() throws IOException {
+            CheckedFile checkedFilePath =
+                CheckedFile.generateCheckedFile("src/test/resources/fileoperation/tochigi_utf8_lf.csv");
+            StreamBinaryIo testTarget = new StreamBinaryIo();
+            List<Integer> byteList = testTarget.inputAsBinary(checkedFilePath);
+            String result = testTarget.formatBinaryForHexDump(byteList);
+            LOGGER.debug("\n{}", result);
+        }
+        @Ignore
+        @Test
+        public void dumpUtf32() throws IOException {
+            CheckedFile checkedFilePath =
+                CheckedFile.generateCheckedFile("src/test/resources/fileoperation/tochigi_utf32_lf.csv");
+            StreamBinaryIo testTarget = new StreamBinaryIo();
+            List<Integer> byteList = testTarget.inputAsBinary(checkedFilePath);
+            String result = testTarget.formatBinaryForHexDump(byteList);
+            LOGGER.debug("\n{}", result);
         }
     }
 }
