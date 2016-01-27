@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,61 +12,76 @@ import org.slf4j.LoggerFactory;
 public class StreamBinaryIo {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamBinaryIo.class);
 
-    public List<Byte> inputAsBinary(CheckedFile targetFile) throws IOException {
+    private int colSize = 32;
+    public void setColSize(int newSize) {
+        this.colSize = newSize;
+    }
+    public int getColSize() {
+        return this.colSize;
+    }
+
+    public List<Integer> inputAsBinary(CheckedFile targetFile) throws IOException {
         LOGGER.debug("** start #inputAsBinary()");
 
-        List<Byte> result = new ArrayList<>();
+        StringBuffer logString = new StringBuffer();
+        List<Integer> result = new ArrayList<>();
         try (BufferedInputStream bufStr = new BufferedInputStream(new FileInputStream(targetFile)))    {
+            int logCounter = 0;
             while(true) {
                 Integer readResult = Integer.valueOf(bufStr.read());
                 if (readResult == -1) {
                     break;
                 }
-                result.add(Byte.valueOf(readResult.byteValue()));
+                result.add(Integer.valueOf(readResult));
+                logCounter++;
+                logString.append(readResult.toString()).append(" ");
+                if (logCounter % colSize == 0) {
+                    logString.append(System.lineSeparator());
+                    logCounter = 0;
+                }
             }
         } catch (IOException e) {
             throw e;
         }
 
+        LOGGER.debug(logString.toString());
         LOGGER.debug("** end #inputAsBinary()");
         return result;
     }
 
-    public String convertBinaryToHexString(List<Byte> input) {
+    public String formatBinaryForHexDump(List<Integer> input) {
+        LOGGER.debug("** start #formatBinaryForHexDump()");
         StringBuilder result = new StringBuilder();
 
         // padding
-        int paddingSize = 16 - ((input.size()) % 16);
-        paddingSize = (paddingSize == 16 ? 0 : paddingSize);
+        int paddingSize = colSize - ((input.size()) % colSize);
+        paddingSize = (paddingSize == colSize ? 0 : paddingSize);
         for (int i=0 ; i<paddingSize ; i++) {
             input.add(null);
         }
 
         // convert to HexString
-        for (Byte value : input) {
+        int colCounter = 0;
+        for (Integer value : input) {
             if (value == null) {
-                result.append("--");
-                continue;
+                result.append("..");
+            } else if (value < 0x10) {
+                result.append("0").append(Integer.toHexString(value).toUpperCase());
+            } else {
+                result.append(Integer.toHexString(value).toUpperCase());
             }
-            String hexString = Integer.toHexString(value.intValue());
-            result.append(hexString);
+            colCounter++;
+            if (colCounter % colSize == 0) {
+                result.append(System.lineSeparator());
+                colCounter = 0;
+            } else if (colCounter % 8 == 0) {
+                result.append("-");
+            } else {
+                result.append(" ");
+            }
         }
 
+        LOGGER.debug("** end #formatBinaryForHexDump()");
         return result.toString();
     }
-
-    public String formatHexStringForDump(String hexString) {
-        // convert to space-separated-value
-        Pattern patternInsertSpace = Pattern.compile("^([0-9a-fA-F]{2}|-{2})(?<=([0-9a-fA-F]{2}|-{2})+)");
-        Matcher matchInsertSpace = patternInsertSpace.matcher(hexString);
-        String ssv = matchInsertSpace.replaceAll(" ");
-
-        // insert new-line every 16 pieces
-        Pattern patternInsertNewline = Pattern.compile("(?:(([0-9a-fA-F]{2} |-{2} ){15}([0-9a-fA-F]{2}|-{2}))) ");
-        Matcher matchInsertNewline = patternInsertNewline.matcher(ssv);
-        String foldedSsv = matchInsertNewline.replaceAll("\n");
-
-        return foldedSsv;
-    }
-
 }
