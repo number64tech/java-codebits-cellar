@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.util.Set;
 import java.util.SortedMap;
@@ -19,14 +20,26 @@ import org.slf4j.LoggerFactory;
 public class StreamReaderUsingCharset {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamReaderUsingCharset.class);
 
-    /** Input file as Specified Charset, Keep chars as Unicode (= 'String' default). */
+    /** Input file as Specified Charset, Return chars as (Unicode) CharBuffer.
+     * @param charset charset of input target textfile
+     * @param targetFile input target textfile
+     * @param bufferSize size of {@link CharBuffer#allocate(int)}
+     */
     public String inputAsSpecifiedCharSet(Charset charset, CheckedFile targetFile) throws IOException {
+        //CharBuffer result = CharBuffer. CharBuffer();
 
         // three-piece set. somewhat classical...
         // when reader#close() is called by try-with-resources syntax, reader#close() calls InputStreamReader#close(),
         // and InputStreamReader#close() calls FileInputStream#close().
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(targetFile), "MS932"))) {
-
+        try (BufferedReader reader =
+          new BufferedReader(new InputStreamReader(new FileInputStream(targetFile), charset))) {
+            while(true) {
+                Integer readResult = Integer.valueOf(reader.read());
+                if (readResult == -1) {
+                    break;
+                }
+                LOGGER.debug("readResult: {} {}", Integer.toHexString(readResult), Character.getName(readResult));
+            }
         } catch (IOException e) {
             throw e;
         }
@@ -34,19 +47,7 @@ public class StreamReaderUsingCharset {
         return null;
     }
 
-    /*
-    CharBuffer  decode(ByteBuffer bb)
-    Convenience method that decodes bytes in this charset into Unicode characters.
-
-    ByteBuffer  encode(CharBuffer cb)
-    Convenience method that encodes Unicode characters into bytes in this charset.
-
-    ByteBuffer  encode(String str)
-    Convenience method that encodes a string into bytes in this charset.
-
-    */
-
-    public String convertStringToEncodedBytes(Charset charset, String input) {
+    public String convertToEncodedBytesString(Charset charset, String input) {
         return null;
     }
 
