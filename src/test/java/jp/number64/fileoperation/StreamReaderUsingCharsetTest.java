@@ -15,8 +15,17 @@ import org.slf4j.LoggerFactory;
 //    TestShiftJISInput.class,
 //    TestUnicodeEscape.class,
 //})
-public class StreamSJisToUniEscTest {
+public class StreamReaderUsingCharsetTest {
     public static final String START_LOG = "** START: {}";
+
+    /**  */
+    @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+    public static final class ListUp {
+        @Test
+        public void doIt() {
+            StreamReaderUsingCharset.listupAvailabeCharsets();
+        }
+    }
 
     /**  */
     @FixMethodOrder(MethodSorters.NAME_ASCENDING)
