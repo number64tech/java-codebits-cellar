@@ -27,7 +27,10 @@ public class StreamReaderUsingCharsetTest {
         @Test
         public void case01() throws IOException {
             LOGGER.debug(START_LOG, getMethodName(new Throwable()));
-            assertEquals(null, "");
+            CheckedFile checkedFilePath =
+                CheckedFile.generateCheckedFile("src/test/resources/fileoperation/tochigi_sjis_crlf.csv");
+            StreamReaderUsingCharset testTarget = new StreamReaderUsingCharset();
+            String result = testTarget.inputAsShiftJISWinExtended(checkedFilePath);
         }
     }
 
@@ -43,8 +46,9 @@ public class StreamReaderUsingCharsetTest {
         }
     }
 
+    //------------------------------------------------------------------------------------------------------
+
     /**  */
-    @FixMethodOrder(MethodSorters.NAME_ASCENDING)
     public static final class ListUp {
         @Ignore
         @Test
