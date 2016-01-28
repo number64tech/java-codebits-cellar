@@ -19,67 +19,52 @@ import org.slf4j.LoggerFactory;
 public class StreamReaderUsingCharset {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamReaderUsingCharset.class);
 
-/*
-Set<String> aliases()
-Returns a set containing this charset's aliases.
+    /** Input file as Specified Charset, Keep chars as Unicode (= 'String' default). */
+    public String inputAsSpecifiedCharSet(Charset charset, CheckedFile targetFile) throws IOException {
 
-static SortedMap<String,Charset>    availableCharsets()
-Constructs a sorted map from canonical charset names to charset objects.
+        // three-piece set. somewhat classical...
+        // when reader#close() is called by try-with-resources syntax, reader#close() calls InputStreamReader#close(),
+        // and InputStreamReader#close() calls FileInputStream#close().
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(targetFile), "MS932"))) {
 
-boolean canEncode()
-Tells whether or not this charset supports encoding.
+        } catch (IOException e) {
+            throw e;
+        }
 
-int compareTo(Charset that)
-Compares this charset to another.
+        return null;
+    }
 
-abstract boolean    contains(Charset cs)
-Tells whether or not this charset contains the given charset.
+    /*
+    CharBuffer  decode(ByteBuffer bb)
+    Convenience method that decodes bytes in this charset into Unicode characters.
 
-CharBuffer  decode(ByteBuffer bb)
-Convenience method that decodes bytes in this charset into Unicode characters.
+    ByteBuffer  encode(CharBuffer cb)
+    Convenience method that encodes Unicode characters into bytes in this charset.
 
-static Charset  defaultCharset()
-Returns the default charset of this Java virtual machine.
+    ByteBuffer  encode(String str)
+    Convenience method that encodes a string into bytes in this charset.
 
-String  displayName()
-Returns this charset's human-readable name for the default locale.
+    */
 
-String  displayName(Locale locale)
-Returns this charset's human-readable name for the given locale.
+    public String convertStringToEncodedBytes(Charset charset, String input) {
+        return null;
+    }
 
-ByteBuffer  encode(CharBuffer cb)
-Convenience method that encodes Unicode characters into bytes in this charset.
+    /** ShiftJIS */
+    public String inputAsShiftJISWinExtended(CheckedFile targetFile) throws IOException {
+        LOGGER.debug("** start #inputAsShiftJISWinExtended()");
+        Charset charset = Charset.forName("Windows-31j");
+        String result = inputAsSpecifiedCharSet(charset, targetFile);
+        return result;
+    }
 
-ByteBuffer  encode(String str)
-Convenience method that encodes a string into bytes in this charset.
-
-boolean equals(Object ob)
-Tells whether or not this object is equal to another.
-
-static Charset  forName(String charsetName)
-Returns a charset object for the named charset.
-
-int hashCode()
-Computes a hashcode for this charset.
-
-boolean isRegistered()
-Tells whether or not this charset is registered in the IANA Charset Registry.
-
-static boolean  isSupported(String charsetName)
-Tells whether the named charset is supported.
-
-String  name()
-Returns this charset's canonical name.
-
-abstract CharsetDecoder newDecoder()
-Constructs a new decoder for this charset.
-
-abstract CharsetEncoder newEncoder()
-Constructs a new encoder for this charset.
-
-String  toString()
-Returns a string describing this charset.
-*/
+    /** EUC-JP */
+    public String inputAsEucJp(CheckedFile targetFile) throws IOException {
+        LOGGER.debug("** start #inputAsEucJp()");
+        Charset charset = Charset.forName("EUC-JP");
+        String result = inputAsSpecifiedCharSet(charset, targetFile);
+        return result;
+    }
 
     /**
      * Listup
@@ -255,6 +240,7 @@ Returns a string describing this charset.
         KEY:[x-windows-iso2022jp]    VALUE:[x-windows-iso2022jp]
      */
     public static void listupAvailabeCharsets() {
+        LOGGER.debug("Default Charset is [{}]", Charset.defaultCharset().name());
         SortedMap<String, Charset> charsets = Charset.availableCharsets();
         Set<String> keySet = charsets.keySet();
         LOGGER.debug("AvailableCharsets: ");
@@ -262,40 +248,12 @@ Returns a string describing this charset.
             LOGGER.debug("KEY:[{}]\t VALUE:[{}]", key, charsets.get(key).name());
         }
     }
-
-    /** ShiftJIS */
-    public String inputAsShiftJIS(CheckedFile targetFile) throws IOException {
-        LOGGER.debug("** start #inputAsShiftJIS()");
-        Charset charset = Charset.forName("Windows-31j");
-        String result = inputAsSpecifiedCharSet(charset, targetFile);
-        LOGGER.debug("** end #inputAsShiftJIS()");
-        return result;
-    }
-
-    /** Input file as sShiftJIS, Keep chars as Unicode-String (Java default). */
-    public String inputAsSpecifiedCharSet(Charset charset, CheckedFile targetFile) throws IOException {
-
-        // three-piece set. somewhat classical...
-        // when reader#close() is called by try-with-resources syntax, reader#close() calls InputStreamReader#close(),
-        // and InputStreamReader#close() calls FileInputStream#close().
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(targetFile), "MS932"))) {
-
-        } catch (IOException e) {
-            throw e;
-        }
-
-        return null;
-    }
-
-    public String formatStringToEscapedUnicode(String input) {
-        return null;
-    }
 }
 
 /**
 
 Reynolds & Postel                                             [Page 100]
-
+
 RFC 1700                    Assigned Numbers                October 1994
 
 CHARACTER SETS
