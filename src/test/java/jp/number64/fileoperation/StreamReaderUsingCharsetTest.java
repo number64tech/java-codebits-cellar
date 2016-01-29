@@ -52,26 +52,6 @@ public class StreamReaderUsingCharsetTest {
             result.reset();
             assertEquals("\u3059", String.valueOf(result.get()));
         }
-
-        @Test
-        public void case02SurrogatePairHandling() throws IOException {
-            LOGGER.debug(START_LOG, getMethodName(new Throwable()));
-            levelOffSandBox();
-            File testInput = new File(sandBox.getAbsolutePath() + File.separator + "sjis02.txt");
-            try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(testInput), USING_CHARSET)) {
-                // "HOKKE"
-                writer.write("\ud867\ude3d");
-            }
-            CheckedFile checkedFilePath = CheckedFile.generateCheckedFile(testInput.getAbsolutePath());
-            StreamReaderUsingCharset testTarget = new StreamReaderUsingCharset();
-            CharBuffer result = testTarget.inputAsShiftJISWinExtended(checkedFilePath);
-
-            LOGGER.debug("1st: {}", (int)result.get());
-            LOGGER.debug("2nd: {}", result.get());
-            result.rewind();
-            assertEquals("\u3066", String.valueOf(result.get()));
-        }
-
     }
 
     /**  */
@@ -90,7 +70,7 @@ public class StreamReaderUsingCharsetTest {
             }
             CheckedFile checkedFilePath = CheckedFile.generateCheckedFile(testInput.getAbsolutePath());
             StreamReaderUsingCharset testTarget = new StreamReaderUsingCharset();
-            CharBuffer result = testTarget.inputAsShiftJISWinExtended(checkedFilePath);
+            CharBuffer result = testTarget.inputAsEucJp(checkedFilePath);
 
             assertEquals("\u3044", String.valueOf(result.get()));
             assertEquals("\u30fc", String.valueOf(result.get()));
