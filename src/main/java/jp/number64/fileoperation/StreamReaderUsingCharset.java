@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <br>
+ * @see java.nio.CharBuffer
  * @see java.nio.charset.Charset
  * @see java.nio.charset.StandardCharsets
  */
@@ -37,11 +38,9 @@ public class StreamReaderUsingCharset {
           new BufferedReader(new InputStreamReader(new FileInputStream(targetFile), charset))) {
             int readCount = reader.read(result);
             LOGGER.debug("** readCount: {}", readCount);
-        } catch (IOException e) {
-            throw e;
         }
 
-        // after reading, position indicates last-char. rewind before return this.
+        // after reading, "position" indicates last-char. rewind before return this.
         result.rewind();
         return result;
     }
