@@ -10,8 +10,8 @@ public abstract class FileTestBase extends TestBase {
 
     protected File sandBox = null;
 
-    /** Construct and levelOff SANDBOX.   a mere working directory. */
-    public void levelOffSandBox() throws IOException {
+    /** Construct and LevelOff SANDBOX.   a mere working directory. */
+    public void createSandbox() throws IOException {
         sandBox = new File(WORKING_DIRECTORY_BASE
             + File.separator + WORKING_DIRECTORY_CATEGORY
             + File.separator + getTestClassName());

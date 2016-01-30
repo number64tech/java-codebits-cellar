@@ -42,6 +42,6 @@ public class CheckedDirTest extends FileTestBase {
 
     @Before
     public void doBefore() throws IOException {
-        levelOffSandBox();
+        createSandbox();
     }
 }

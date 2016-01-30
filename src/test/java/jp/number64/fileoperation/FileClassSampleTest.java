@@ -27,7 +27,7 @@ public class FileClassSampleTest {
 
         @Before
         public void doBefore() throws IOException {
-            levelOffSandBox();
+            createSandbox();
         }
     }
 }

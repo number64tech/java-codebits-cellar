@@ -30,7 +30,7 @@ public class StreamBinaryIoTest {
         @Test
         public void case01() throws IOException {
             LOGGER.debug(START_LOG, getMethodName(new Throwable()));
-            levelOffSandBox();
+            createSandbox();
             File testInput = new File(sandBox.getAbsolutePath() + File.separator + "bin.txt");
             try (FileOutputStream writer = new FileOutputStream(testInput)) {
                 writer.write(1);

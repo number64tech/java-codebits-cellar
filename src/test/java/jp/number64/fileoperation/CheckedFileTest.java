@@ -41,6 +41,6 @@ public class CheckedFileTest extends FileTestBase {
 
     @Before
     public void doBefore() throws IOException {
-        levelOffSandBox();
+        createSandbox();
     }
 }

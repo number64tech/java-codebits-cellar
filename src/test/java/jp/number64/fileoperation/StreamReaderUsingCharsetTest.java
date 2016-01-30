@@ -32,7 +32,7 @@ public class StreamReaderUsingCharsetTest {
         @Test
         public void case01() throws IOException {
             LOGGER.debug(START_LOG, getMethodName(new Throwable()));
-            levelOffSandBox();
+            createSandbox();
             File testInput = new File(sandBox.getAbsolutePath() + File.separator + "sjis01.txt");
             try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(testInput), USING_CHARSET)) {
                 writer.write("\u3066\u3059\u3068");
@@ -63,7 +63,7 @@ public class StreamReaderUsingCharsetTest {
         @Test
         public void case01() throws IOException {
             LOGGER.debug(START_LOG, getMethodName(new Throwable()));
-            levelOffSandBox();
+            createSandbox();
             File testInput = new File(sandBox.getAbsolutePath() + File.separator + "euc.txt");
             try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(testInput), USING_CHARSET)) {
                 writer.write("\u3044\u30fc\u3086\u30fc\u3057\u30fc");
