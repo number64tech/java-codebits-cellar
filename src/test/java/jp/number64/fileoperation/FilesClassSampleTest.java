@@ -1,8 +1,5 @@
 package jp.number64.fileoperation;
 
-import java.io.IOException;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,17 +11,16 @@ import org.slf4j.LoggerFactory;
 public class FilesClassSampleTest {
 
     /**  */
-    public static final class RenameToTest extends FileTestBase {
-        private static final Logger LOGGER = LoggerFactory.getLogger(RenameToTest.class);
+    public static final class CaptureAndSaveWebPageTest extends FileTestBase {
+        private static final Logger LOGGER = LoggerFactory.getLogger(CaptureAndSaveWebPageTest.class);
 
         @Test
-        public void case01() {
-            LOGGER.debug(START_LOG, getMethodName(new Throwable()));
+        public void case01GetGoogle() {
+
+
+
         }
 
-        @Before
-        public void doBefore() throws IOException {
-            createSandbox();
-        }
+
     }
 }

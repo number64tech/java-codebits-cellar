@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.slf4j.Logger;
@@ -34,8 +35,8 @@ public class FilesClassSample {
         URI uri = URI.create(targetUri);
 
         try (InputStream in = uri.toURL().openStream()) {
-           // Long captureSize = Files.copy(uri.in, target, options)
-
+           Long captureSize = Files.copy(in, path);
+           LOGGER.debug("** captureSize: {}", captureSize);
         }
 
         return null;
