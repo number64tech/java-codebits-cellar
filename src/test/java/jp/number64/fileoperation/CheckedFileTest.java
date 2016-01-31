@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -37,10 +36,5 @@ public class CheckedFileTest extends FileTestBase {
     public void case03() throws IOException {
         LOGGER.debug("** case03 expected = IOException.class");
         CheckedFile.generateCheckedFile(sandBox.getAbsolutePath());
-    }
-
-    @Before
-    public void doBefore() throws IOException {
-        createSandbox();
     }
 }

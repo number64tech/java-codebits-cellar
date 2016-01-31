@@ -5,12 +5,15 @@ import java.io.IOException;
 
 import jp.number64.TestBase;
 
+import org.junit.Before;
+
 public abstract class FileTestBase extends TestBase {
     protected static final String WORKING_DIRECTORY_CATEGORY = "fileoperation";
 
     protected File sandBox = null;
 
     /** Construct and LevelOff SANDBOX.   a mere working directory. */
+    @Before
     public void createSandbox() throws IOException {
         sandBox = new File(WORKING_DIRECTORY_BASE
             + File.separator + WORKING_DIRECTORY_CATEGORY

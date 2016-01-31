@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -38,10 +37,5 @@ public class CheckedDirTest extends FileTestBase {
         File tempTarget = new File(sandBox.getAbsolutePath() + File.separator + tempFileName);
         assertTrue(tempTarget.createNewFile());
         CheckedDirectory.generateCheckedDirectory(tempTarget.getAbsolutePath());
-    }
-
-    @Before
-    public void doBefore() throws IOException {
-        createSandbox();
     }
 }

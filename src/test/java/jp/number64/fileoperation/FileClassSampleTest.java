@@ -1,8 +1,5 @@
 package jp.number64.fileoperation;
 
-import java.io.IOException;
-
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -23,11 +20,6 @@ public class FileClassSampleTest {
         @Test
         public void case01() {
             LOGGER.debug(START_LOG, getMethodName(new Throwable()));
-        }
-
-        @Before
-        public void doBefore() throws IOException {
-            createSandbox();
         }
     }
 }
