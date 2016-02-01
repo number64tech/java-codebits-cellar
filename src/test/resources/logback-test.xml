@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <property name="LOG_DIR" value="./log/test.log" />
+    <property name="LOG_DIR" value="./log" />
     <property name="CONSOLE_LOG_PATTERN"
         value="%t %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %class %M %L - %msg%n%ex" />
     <property name="FILE_LOG_PATTERN"

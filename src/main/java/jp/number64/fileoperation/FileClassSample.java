@@ -2,7 +2,6 @@ package jp.number64.fileoperation;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,31 +58,6 @@ public class FileClassSample {
            LOGGER.debug("** an error occured. {}", e.getMessage());
         } catch (NullPointerException e) {
            LOGGER.debug("** an error occured. {}", e.getMessage());
-        }
-    }
-
-    /** create & cleanup working directory.
-     * @param path workingdirectory. (project-base/)<code>WORKING_DIRECTORY_TOP</code>/(path)
-     */
-    public static void prepareWorkingDirectory(String path) throws IOException {
-        File targetDir = new File(WORKING_DIRECTORY_TOP + File.separator + path);
-        LOGGER.debug("** working directory : {} ", targetDir.getAbsolutePath());
-
-        if (targetDir.exists()) {
-            // try cleanup directory.
-            File[] items = targetDir.listFiles();
-            for (File item : items) {
-                boolean delResult = item.delete();
-                if (!delResult) {
-                    throw new IOException("Init error. cause : couldn't delete dir PATH=" + item.getAbsolutePath());
-                }
-            }
-        } else {
-            // try creating directory.
-            boolean createResult = targetDir.mkdirs();
-            if (!createResult) {
-                throw new IOException("Init error. cause : couldn't create dir(s) PATH=" + targetDir.getAbsolutePath());
-            }
         }
     }
 }

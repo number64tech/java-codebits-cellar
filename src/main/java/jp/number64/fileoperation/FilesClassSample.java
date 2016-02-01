@@ -22,27 +22,22 @@ public class FilesClassSample {
      * @return a copy of captured file
      * @see java.nio.file.Files#copy(java.nio.file.Path, java.io.OutputStream)
      */
-    public File captureAndSaveWebPage(String targetUri, String outputPath) throws IOException {
+    public Path captureAndSaveWebPage(String targetUri, String outputPath) throws IOException {
         LOGGER.debug("** captureAndSaveWebPage");
 
         LOGGER.debug("** URI: {}", targetUri);
         LOGGER.debug("** FILEPATH: {}", outputPath);
 
-        File outputFile = new File(outputPath);
-        if (!outputFile.getParentFile().isDirectory()) {
-            throw new IOException("Invalid path: not directory.");
-        }
-        Path path = outputFile.toPath();
-
+        Path tempPath = new File(outputPath + ".tmp").toPath();
         URI uri = URI.create(targetUri);
 
-        File returnFile = null;
+        Path returnFile = null;
         try (InputStream in = uri.toURL().openStream()) {
-            long capturedSize = Files.copy(in, path);
+            long capturedSize = Files.copy(in, tempPath);
             LOGGER.debug("** captureSize: {}", capturedSize);
 
-            returnFile = new File(outputPath + ".copy");
-            Files.copy(path, returnFile.toPath(),
+            returnFile = new File(outputPath).toPath();
+            Files.copy(tempPath, returnFile,
                 StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
         }
 
